@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="stylesheet" href="/static/styl.css" />
+<title>Registrace</title>
+<body>
+    <div class="uvodka">
+        <h1>Vodácký kurz 2023</h1>
+        <p>Jsme rádi, že máte zájem o tento vodácký kurz! Prosím, zaregistrujte se níže.</p>
+    </div>
+    <form>
+        <div class="boxy">
+            <label>Přezdívka</label>
+            <input name="nick" class="" placeholder="Zadej svou přezdívku" />
+            <div class="erroros skryt">Je vyžadována Vaše přezdívka.</div>
+            <span id="fajfkos" class="fajfka">&#x2713;</span>
+        </div>
+
+        <div class="boxy">
+            <label>Kamarád na lodi</label>
+            <input name="kanoe_kamarad" class="" placeholder="Nepovinný údaj" />
+        </div>
+
+        <div class="boxy">
+            <label>Umíte plavat?</label>
+            <select style="padding: 5px 15px;" id="vyber" name="vyber">
+                <option value="ne">NE</option>
+                <option value="ano">ANO</option>
+            </select>
+        </div>
+
+        <hr/>
+        <div style="display: block; clear: both; height: 1px;">
+            <button onclick="show()">Odeslat</button>
+            <a href="/">
+                <button style="margin: 10px;">Zpět</button>
+            </a>
+        </div>
+    </form>
+    
+    <script>
+      function show() {
+        alert("Stisknute tlačítko");
+      }
+
+const form = document.querySelector('form'); 
+  const podeko = document.querySelector(".podekovani"); 
+  const nick = document.querySelector('input[name="nick"]');
+
+  let splnujePodminku = false;
+
+  const znovuOvereni = (elm) =>{
+    elm.classList.remove("nespravnost");
+    elm.nextElementSibling.classList.add("skryt");
+    document.getElementById("fajfkos").style.display = "inline-flex";
+  }
+
+  const nespravnostElm = (elm) =>{
+    document.getElementById("fajfkos").style.display = "none";
+    elm.classList.add("nespravnost");
+    elm.nextElementSibling.classList.remove("skryt");
+  }
+
+  const overeni = () =>{
+    if (nick.value.length < 2 || nick.value.length > 20){
+      splnujePodminku = false;
+      nespravnostElm(nick);
+    }else{
+      znovuOvereni(nick);
+      splnujePodminku = true;
+    }
+  }  
+
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    overeni();
+    if(splnujePodminku){
+      form.remove();
+      podeko.classList.remove("skryt");
+    }
+  });
+
+  nick.addEventListener("input", () => {
+    overeni();
+  });
+    </script>
+    
+</body>
+</html>
